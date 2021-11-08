@@ -4,7 +4,7 @@ date: 2021-11-08T00:35:23-05:00
 layout: about
 draft: false
 type: "page"
-teamAboutTagline: We do things that matter.
+teamAboutTagline: Bitsforeveryone
 aboutImage: practice-2019-1.jpg
 aboutGallery:
  - a2f_2018_2.jpg
@@ -15,4 +15,4 @@ aboutGallery:
  - clubnight-2021.JPG
 ---
 
-Bitsforeveryone was constructed in the summer of 2010.
+Bitsforeveryone placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder placeholder.
