@@ -1,3 +1,33 @@
 baseURL = 'http://example.org/'
 languageCode = 'en-us'
 title = 'My New Hugo Site'
+theme = 'bfetheme'
+
+paginate = 2
+
+[menu]
+  [[menu.main]]
+    name = "Home"
+    pre = "home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "About"
+    pre = "about"
+    url = "/about/"
+    weight = 2
+[[menu.main]]
+    name = "empty"
+    pre = "emtpy"
+    url = "/emtpy/"
+    weight = 3
+  [[menu.main]]
+    name = "Blog"
+    pre = "blog"
+    url = "/blog/"
+    weight = 4
+  [[menu.main]]
+    name = "Writeups"
+    pre = "writeups"
+    url = "/writeups/"
+    weight = 5

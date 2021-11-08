@@ -1,0 +1,43 @@
+{{ define "main" }}
+!--about-->
+<div id="about" class="about">
+	 <div class="about-left">
+	 </div>
+	 <div class="about-right">
+		<h3>About Us</h3>
+		<h4>{{ .Params.teamAboutTagline }}</h4>
+		<p>{{ .Content }}</p>
+	 </div>
+	 <div class="clearfix"></div>
+</div>
+<!--gallery -->
+		<script src="/js/jquery.chocolat.js"></script>
+		<!--light-box-files -->
+		<script type="text/javascript">
+		$(function() {
+			$('.moments-bottom a').Chocolat();
+		});
+		</script>
+<!--gallery js-->
+<div id="gallery" class="gallery">
+	 <div class="container">
+		 <h3>Gallery</h3>
+         <div class="gallery-info">
+			{{ range .Params.aboutGallery }}
+				<div class="col-md-4 galry-grids moments-bottom">
+					<a class="b-link-stripe b-animate-go" href="/images/{{ . }}">
+						<img src="/images/{{ . }}" class="img-responsive" alt="">
+						<div class="b-wrapper">
+							<span class="b-animate b-from-left    b-delay03 ">
+								<img class="img-responsive" src="/images/e.png" alt=""/>
+							</span>
+						</div>
+					</a>
+				</div>
+				{{ end }}
+				<div class="clearfix"> </div>
+			</div>
+	 </div>
+</div>
+{{ end }}
+	

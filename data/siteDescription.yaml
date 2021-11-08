@@ -1,0 +1,13 @@
+## Index page (home page) items
+
+# Appears on jumbotron
+teamDesc: The United States Military Academy's premiere competitive cyber team. Organized by instructors, led by students, and enabled by West Point's Cyber Research Center. We attack, defend, and CTF.
+# display beneath jumbotrop
+
+## About page items
+
+# Subheader for about page - in different font/color.
+teamAboutTagline: We do things that matter.
+# Team description
+teamAbout: and why should we?
+  the path is clear.

@@ -1,0 +1,33 @@
+<div id="home" class="top-header">
+ 
+
+    <div class="container">
+        <div class="logo">
+            <h1><a href="/en"></a></h1>
+        </div>
+        <div class="top-menu">
+            <span class="menu"><img src="/static/images/nav-icon.png" alt=""></span>
+            <ul>
+                {{ range .Site.Menus.main }}
+                {{ if ne .Name "empty" }}
+                    <li><a href="{{ .URL }}">
+                        {{ $text := print .Name | safeHTML }}
+                        <strong>{{ $text }}</strong></a></li>
+                    {{ else }}
+                    <li><a>‎</a><strong></strong></a></li>
+                    {{ end }}
+                {{ end }}
+                
+            </ul>
+            <!-- script-for-menu -->
+            <script>
+                $("span.menu").click(function () {
+                    $(".top-menu ul").slideToggle("slow", function () {
+                    });
+                });
+            </script>
+            <!-- script-for-menu -->
+        </div>
+    </div>
+    
+    </div>
