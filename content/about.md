@@ -4,7 +4,7 @@ date: 2021-11-08T00:35:23-05:00
 layout: about
 draft: false
 type: "page"
-teamAboutTagline: Bitsforeveryone
+teamAboutTagline: "CTFs are great."
 aboutImage: practice-2019-1.jpg
 aboutGallery:
  - a2f_2018_2.jpg
