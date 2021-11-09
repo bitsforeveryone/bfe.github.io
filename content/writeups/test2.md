@@ -1,8 +1,10 @@
 ---
 title: "Test2"
 date: 2021-11-08T07:33:49-05:00
-type: "blog"
+type: "writeup"
 draft: false
+image: "/images/csaw_2018-1.jpg"
+
 ---
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
 incididunt ut labore et dolore magna aliqua. Pellentesque eu tincidunt tortor 

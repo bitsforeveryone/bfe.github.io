@@ -1,9 +1,9 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://bfe.one/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'BitsForEveryone'
 theme = 'hugo-bfe'
 
-paginate = 2
+paginate = 4
 
 [menu]
   [[menu.main]]
@@ -16,10 +16,10 @@ paginate = 2
     pre = "about"
     url = "/about/"
     weight = 2
-[[menu.main]]
+  [[menu.main]]
     name = "empty"
-    pre = "emtpy"
-    url = "/emtpy/"
+    pre = "empty"
+    url = "/empty/"
     weight = 3
   [[menu.main]]
     name = "Blog"
