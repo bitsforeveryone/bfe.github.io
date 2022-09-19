@@ -3,7 +3,7 @@ languageCode = 'en-us'
 title = 'BitsForEveryone'
 theme = 'hugo-bfe'
 
-paginate = 3
+paginate = 10
 summaryLength = 3
 
 [menu]
@@ -28,5 +28,6 @@ summaryLength = 3
   TeamName = "Cadet Competitive Cyber Team"
   Description = "The United States Military Academy's premiere competitive cyber team. Organized by instructors, led by cadets, and enabled by West Point's Cyber Research Center."
   BlurbTitle="C3T == BitsForEveryone"
-  Blurb="C3T is a team of cadets from the United Staates Military Academy who are interested in the field of Cyber Security. C3T participates in many CTFs during the academic year as `BitsForEveryone`, including NCX, CCDC, and CSAW. We hack for flags and for country, and are always looking for new members to join our team."
+  Blurb="C3T is a team of cadets from the United States Military Academy who are interested in the field of Cyber Security. C3T participates in many CTFs during the academic year as `BitsForEveryone`, including NCX, CCDC, and CSAW. We hack for flags and for country, and are always looking for new members to join our team."
   JoinButton="Join the Discord!"
+  ButtonLink="https://www.google.com"

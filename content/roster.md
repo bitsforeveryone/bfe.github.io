@@ -11,7 +11,7 @@ type: "page"
 | CDT Edward Tang       | CIC                | @Toadmo        | 2023 |
 | CDT Daniel Chung      | ACIC/Web Champion  | @f0ur3y3s      | 2023 |
 | CDT Cole Mckee        | Crypto Champion    | @metal         | 2024 |
-| CDT Justin Seuss      | Purple Champion    | @0xDEADB33F    | 2024 |
+| CDT Justin Suess      | Purple Champion    | @0xDEADB33F    | 2024 |
 | CDT Robert Blacha     | Binex Champion     | @alba gu brath | 2025 |
 | CDT Matthew Eckert    | Forensics Champion | @Fontaine      | 2024 |
 | CDT Jalen Morgan      | Team Member        | @gridl0ck      | 2023 |
@@ -28,5 +28,5 @@ type: "page"
 | CDT Hojin Han         | Team Member        | @xisor               | 2026 |
 | CDT Korbin Deary      | Team Member        | @Electro          | 2026 |
 | CDT Nick Dinonno      | Team Member        | @nickdinonno      | 2026 |
-<!-- | Team Member        | CDT Alex Van-Mechelan | @VM           | 2022 | -->
+| CDT Alex Van-Mechelan | Team Member        | @VM           | 2022 |
 {{</table>}}
